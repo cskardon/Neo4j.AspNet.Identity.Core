@@ -25,16 +25,19 @@ if not "%errorlevel%"=="0" goto failure
 
 
 REM XUnit tests
+@echo %Nuget% install xunit.runner.console -Version 2.2.0 -OutputDirectory packages
 %Nuget% install xunit.runner.console -Version 2.2.0 -OutputDirectory packages
 if not "%errorlevel%"=="0" goto failure
 @echo XUnit installed...
 
+@echo packages\xunit.runner.console.2.2.0\tools\xunit.console.x86.exe Neo4j.AspNet.Identity.Core.Tests\bin\%config%\Neo4j.AspNet.Identitiy.Core.Tests.dll
 packages\xunit.runner.console.2.2.0\tools\xunit.console.x86.exe Neo4j.AspNet.Identity.Core.Tests\bin\%config%\Neo4j.AspNet.Identitiy.Core.Tests.dll
 if not "%errorlevel%"=="0" goto failure
 @echo Neo4jClient tests... SUCCESS.
 
 REM Package
 mkdir Artifacts
+@echo %Nuget% pack "Neo4j.AspNet.Identity.Core.nuspec" -o Artifacts -p Configuration=%config% %version%
 %Nuget% pack "Neo4j.AspNet.Identity.Core.nuspec" -o Artifacts -p Configuration=%config% %version%
 if not "%errorlevel%"=="0" goto failure
 @echo Packed and ready to roll!
