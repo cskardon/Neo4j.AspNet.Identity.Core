@@ -100,7 +100,7 @@
             if (string.IsNullOrWhiteSpace(user.Id))
                 user.Id = Guid.NewGuid().ToString();
 
-            var query = GraphClient.Cypher
+            var query = new CypherFluentQuery(GraphClient)
                 .Create($"(:{UserLabel} {{user}})")
                 .WithParam("user", user);
 
@@ -150,7 +150,7 @@
         public async Task<TUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            Throw.ArgumentException.IfNull(userId, nameof(userId));
+            Throw.ArgumentException.IfNullOrWhiteSpace(userId, nameof(userId));
             ThrowIfDisposed();
 
             var query = UserMatch()
@@ -176,7 +176,7 @@
         public async Task<TUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            Throw.ArgumentException.IfNull(normalizedUserName, nameof(normalizedUserName));
+            Throw.ArgumentException.IfNullOrWhiteSpace(normalizedUserName, nameof(normalizedUserName));
             ThrowIfDisposed();
 
             normalizedUserName = normalizedUserName.ToLowerInvariant().Trim();
@@ -312,7 +312,7 @@
             Throw.ArgumentException.IfNull(providerKey, nameof(providerKey));
             ThrowIfDisposed();
 
-            var query = GraphClient.Cypher
+            var query = new CypherFluentQuery(GraphClient)
                 .Match($"(l:{LoginLabel})<-[:{Relationship.HasLogin}]-(u:{UserLabel})")
                 .Where((UserLoginInfo l) => l.LoginProvider == loginProvider)
                 .AndWhere((UserLoginInfo l) => l.ProviderKey == providerKey)
@@ -412,7 +412,7 @@
             Throw.ArgumentException.IfNull(claim, nameof(claim));
             ThrowIfDisposed();
 
-            var query = GraphClient.Cypher
+            var query = new CypherFluentQuery(GraphClient)
                 .Match($"(c:{ClaimLabel})<-[:{Relationship.HasClaim}]-(u:{UserLabel})")
                 .Where((SimplifiedClaim c) => c.Type == claim.Type)
                 .AndWhere((SimplifiedClaim c) => c.Value == claim.Value)
@@ -518,7 +518,9 @@
             Throw.ArgumentException.IfNullOrWhiteSpace(normalizedEmail, nameof(normalizedEmail));
             ThrowIfDisposed();
 
-            var query = GraphClient.Cypher
+            normalizedEmail = normalizedEmail.Trim().ToUpperInvariant();
+
+            var query = new CypherFluentQuery(GraphClient)
                 .Match($"(u:{UserLabel})")
                 .Where((TUser u) => u.NormalizedEmail == normalizedEmail)
                 .Return(u => u.As<TUser>());

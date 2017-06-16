@@ -8,6 +8,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Identity;
     using Neo4jClient;
+    using Neo4jClient.Cypher;
 
     public class Neo4jRoleStore<TRole>
         : BaseUserStore, IQueryableRoleStore<TRole>, IRoleClaimStore<TRole>
@@ -28,7 +29,7 @@
             Throw.ArgumentException.IfNull(role, nameof(role));
             ThrowIfDisposed();
 
-            var query = GraphClient.Cypher.Create($"(:{RoleLabel} {{roleParam}})").WithParam("roleParam", role);
+            var query = new CypherFluentQuery(GraphClient).Create($"(:{RoleLabel} {{roleParam}})").WithParam("roleParam", role);
             await query.ExecuteWithoutResultsAsync();
             return IdentityResult.Success;
         }
@@ -39,7 +40,7 @@
             Throw.ArgumentException.IfNull(role, nameof(role));
             ThrowIfDisposed();
 
-            var query = GraphClient.Cypher
+            var query = new CypherFluentQuery(GraphClient)
                 .Match($"(r:{RoleLabel})")
                 .Where((TRole r) => r.Id == role.Id)
                 .Set("r = {roleParam}")
@@ -55,7 +56,7 @@
             Throw.ArgumentException.IfNull(role, nameof(role));
             ThrowIfDisposed();
 
-            var query = GraphClient.Cypher
+            var query = new CypherFluentQuery(GraphClient)
                 .Match($"(r:{RoleLabel})")
                 .Where((TRole r) => r.Id == role.Id)
                 .DetachDelete("r");
@@ -119,7 +120,7 @@
             Throw.ArgumentException.IfNull(roleId, nameof(roleId));
             ThrowIfDisposed();
 
-            var query = GraphClient.Cypher
+            var query = new CypherFluentQuery(GraphClient)
                 .Match($"(r:{RoleLabel})")
                 .Where((TRole r) => r.Id == roleId)
                 .Return(r => r.As<TRole>());
@@ -133,7 +134,7 @@
             Throw.ArgumentException.IfNull(normalizedRoleName, nameof(normalizedRoleName));
             ThrowIfDisposed();
 
-            var query = GraphClient.Cypher
+            var query = new CypherFluentQuery(GraphClient)
                 .Match($"(r:{RoleLabel})")
                 .Where((TRole r) => r.NormalizedName == normalizedRoleName)
                 .Return(r => r.As<TRole>());
