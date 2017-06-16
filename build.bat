@@ -1,6 +1,6 @@
+//@echo Off
 REM MyGet Build Commands
 
-@echo Off
 set config=%1
 if "%config%" == "" (
    set config=Release
