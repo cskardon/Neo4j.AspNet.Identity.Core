@@ -12,24 +12,26 @@ if not "%PackageVersion%" == "" (
 )
 
 REM Restore packages
+@echo tools\nuget.exe restore Neo4j.AspNet.Identity.Core.sln
 tools\nuget.exe restore Neo4j.AspNet.Identity.Core.sln
 if not "%errorlevel%"=="0" goto failure
 @echo Packages restored - on to build...
 
 REM Build
+@echo "%programfiles(x86)%\MSBuild\14.0\Bin\MSBuild.exe" Neo4j.AspNet.Identity.Core.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
 "%programfiles(x86)%\MSBuild\14.0\Bin\MSBuild.exe" Neo4j.AspNet.Identity.Core.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
 if not "%errorlevel%"=="0" goto failure
 @echo Built and onto tests....
 
 
 REM XUnit tests
-REM tools\nuget.exe install xunit.runner.console -Version 2.2.0 -OutputDirectory packages
-REM if not "%errorlevel%"=="0" goto failure
-REM @echo XUnit installed...
+tools\nuget.exe install xunit.runner.console -Version 2.2.0 -OutputDirectory packages
+if not "%errorlevel%"=="0" goto failure
+@echo XUnit installed...
 
-REM packages\xunit.runner.console.2.2.0\tools\xunit.console.x86.exe Neo4jClient.Tests\bin\%config%\Neo4jClient.Tests.dll
-REM if not "%errorlevel%"=="0" goto failure
-REM @echo Neo4jClient tests... SUCCESS.
+packages\xunit.runner.console.2.2.0\tools\xunit.console.x86.exe Neo4j.AspNet.Identity.Core.Tests\bin\%config%\Neo4j.AspNet.Identitiy.Core.Tests.dll
+if not "%errorlevel%"=="0" goto failure
+@echo Neo4jClient tests... SUCCESS.
 
 REM Package
 mkdir Artifacts
