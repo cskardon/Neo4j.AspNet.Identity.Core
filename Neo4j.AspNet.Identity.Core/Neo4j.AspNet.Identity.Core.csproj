@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Authors>Chris Skardon</Authors>
+    <Company>Chris Skardon</Company>
+    <Description>A NetStandard 1.3 Neo4j based identity provider for ASP.NET.</Description>
+    <PackageTags>neo4j nosql cypher aspnet identity mvc core</PackageTags>
+    <Copyright>Chris Skardon</Copyright>
+    <PackageLicenseUrl>https://github.com/cskardon/Neo4j.AspNet.Identity.Core/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/cskardon/Neo4j.AspNet.Identity.Core/</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
