@@ -252,7 +252,7 @@
             for (var i = 0; i < logins.Count; i++)
             {
                 var loginName = $"login{i}";
-                var loginParam = logins[i];
+                var loginParam = new InternalLoginProvider(logins[i]);
                 query = query.With("u")
                     .Create($"(u)-[:{Relationship.HasLogin}]->(l{i}:{LoginLabel} {{{loginName}}})")
                     .WithParam(loginName, loginParam);
@@ -260,6 +260,23 @@
             return query;
         }
 
+        /// <summary>
+        /// This exists, as the default <see cref="UserLoginInfo"/> contains circular references that Json.NET doesn't like.
+        /// Only used for updates, serializing back is fine.
+        /// </summary>
+        private class InternalLoginProvider
+        {
+            public InternalLoginProvider(UserLoginInfo info)
+            {
+                LoginProvider = info.LoginProvider;
+                ProviderDisplayName = info.ProviderDisplayName;
+                ProviderKey = info.ProviderKey;
+            }
+
+            private string LoginProvider { get; set; }
+            private string ProviderDisplayName { get; set; }
+            private string ProviderKey { get; set; }
+        }
 
         /// <summary>
         ///     Gets: <c>MATCH (<paramref name="userIdentifier" />:<see cref="UserLabel" />)</c>
