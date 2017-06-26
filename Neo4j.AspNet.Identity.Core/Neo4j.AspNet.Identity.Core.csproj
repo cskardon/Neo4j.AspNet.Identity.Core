@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Chris Skardon</Authors>
     <Company>Chris Skardon</Company>
     <Description>A NetStandard 1.3 Neo4j based identity provider for ASP.NET.</Description>
@@ -10,6 +10,7 @@
     <Copyright>Chris Skardon</Copyright>
     <PackageLicenseUrl>https://github.com/cskardon/Neo4j.AspNet.Identity.Core/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/cskardon/Neo4j.AspNet.Identity.Core/</PackageProjectUrl>
+    <Version>0.1.1-alpha</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
