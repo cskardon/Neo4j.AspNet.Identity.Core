@@ -1,13 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo4j.AspNet.Identity.Core", "Neo4j.AspNet.Identity.Core\Neo4j.AspNet.Identity.Core.csproj", "{ECB293AF-CFEE-4C43-964D-EA334A095371}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B8D7351E-B444-470D-ABE5-81B9AD6BB404}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
+		Neo4j.AspNet.Identity.Core.nuspec = Neo4j.AspNet.Identity.Core.nuspec
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
