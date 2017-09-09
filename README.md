@@ -49,6 +49,8 @@ Both coming VERY soon
    ```
 9. Remove the `app.UseDatabaseErrorPage()` line in the `Configure(...)` method
 
+10. Remove the `ApplicationUser.cs` file in the `Models` folder, as this will conflict with the one declared within this package.
+
 Now you should be able to start, register and login!
 
 
