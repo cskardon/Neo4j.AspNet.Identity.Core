@@ -48,6 +48,9 @@ namespace Neo4j.AspNet.Identity.Core
 
         public bool PhoneNumberConfirmed { get; set; }
 
+        [JsonIgnore]
+        public virtual bool TwoFactorEnabled { get; set; }
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public virtual string PasswordHash { get; set; }
 
@@ -56,6 +59,7 @@ namespace Neo4j.AspNet.Identity.Core
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public virtual string Email { get; set; }
+
 
         [JsonIgnore]
         public virtual List<Neo4jIdentityRole> Roles { get; set; }
