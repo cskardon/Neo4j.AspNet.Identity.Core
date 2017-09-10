@@ -53,6 +53,7 @@ Both coming VERY soon
 
 Now you should be able to start, register and login!
 
+It is also recommended to disable or comment out two-factor authentication, as this is not yet implemented in this package.
 
 ### Notes
 Built based on [Neo4j.AspNet.Identity](https://github.com/DotNet4Neo4j/Neo4j.AspNet.Identity) with changes influenced (and indeed in some cases copied) from [Writing An ASP.NET Core Identity Storage Provider From Scratch With RavenDB](http://www.elemarjr.com/en/2017/05/writing-an-asp-net-core-identity-storage-provider-from-scratch-with-ravendb/) by [ElmarJR](https://github.com/ElemarJR).
